@@ -56,9 +56,12 @@ function calculateIndividualEmployeeBonus( employee ) {
     console.log('We are in calculate');
 
     // Creating new object
+    let employeeBonusInfo = {};
+    employeeBonusInfo.name = employee.name;
+    console.log(employeeBonusInfo.name);
 
     // Create bonusPercentage variable
-    let bonusPercentage = 1;
+    let bonusPercentage = 0;
     // Conditionals to make bonusPercentage
     if (employee.reviewRating == 3) {
       bonusPercentage += .04;
@@ -82,22 +85,39 @@ function calculateIndividualEmployeeBonus( employee ) {
 
   console.log(bonusPercentage);
 
-  if (bonusPercentage > 1.13) {
-    bonusPercentage = 1.13;
+  if (bonusPercentage > 0.13) {
+    bonusPercentage = 0.13;
   }
 
-  if (bonusPercentage < 1) {
-    bonusPercentage = 1;
+  if (bonusPercentage < 0) {
+    bonusPercentage = 0;
   }
 
   console.log(bonusPercentage);
-
+  employeeBonusInfo.bonusPercentage = bonusPercentage;
+  console.log("the calculated percent is:", employeeBonusInfo.bonusPercentage);
+  console.log(typeof employeeBonusInfo.bonusPercentage); // Testing data type
+  employeeBonusInfo.totalBonus = employee.annualSalary * bonusPercentage;
+  console.log("the total bonus is:", employeeBonusInfo.totalBonus);
+  console.log(typeof employeeBonusInfo.totalBonus); // Testing data type
+  employeeBonusInfo.totalCompensation = (employee.annualSalary * 1) + employeeBonusInfo.totalBonus;
+  console.log("The total compensation is:", employeeBonusInfo.totalCompensation);
+  console.log(typeof employeeBonusInfo.totalCompensation); // Testing data type
 
   // return new object with bonus results
 
+  console.log(employeeBonusInfo);
+  return employeeBonusInfo;
+
 }
 
-
-// let bonusInfo = calculateIndividualEmploymentBonus(employee);
 // console.log(bonusInfo)
 
+let bonusArray = []; // Array to contain employee bonus info
+
+// Loop to populate bonusArray[]
+for(let employee of employees) {
+  bonusArray.push(calculateIndividualEmployeeBonus(employee));
+}
+
+console.log(bonusArray); // testing loop
